@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI chat</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="index.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="index.css" />
+  </head>
+  <body>
+    <div id="app">
+      <h1>AI chat</h1>
+      <div class="chat-container">
+        <div class="chat-messages" ref="chatMessages">
+          <div v-for="message in messages" :key="message.id" class="message">
+            <div v-if="message.isBot" class="bot-message">
+              <pre>{{ message.text }}</pre>
+            </div>
+            <div v-else class="user-message"><pre>{{ message.text }}</pre></div>
+          </div>
+        </div>
+        <div class="status" v-if="status">{{ status }}</div>
+        <div class="chat-input">
+          <input
+            v-model="userInput"
+            @keyup.enter="sendMessage"
+            @input="handleInput"
+            type="text"
+            placeholder="Type your message..."
+          />
+          <button @click="sendMessage" :disabled="isDisabled">Send</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
